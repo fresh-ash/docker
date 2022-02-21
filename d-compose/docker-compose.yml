@@ -1,0 +1,29 @@
+
+services:
+    s1:
+      image: python:3.9-alpine
+      container_name: ps1
+      ports: 
+      - 7000:7000
+      command: sh -c "python3 -u -m http.server 7000 2>> /app/data/ps1-log.txt"
+      networks: 
+      - l-net
+      volumes:
+      - data:/app/data
+    s2:
+      image: python:3.9-alpine
+      container_name: ps2
+      ports:
+      - 7001:7001
+      command: sh -c "python3 -u -m http.server 7001 2>> /app/data/ps2-log.txt"
+      networks:
+      - l-net
+      volumes:
+      - data:/app/data
+
+networks:
+  l-net:
+    driver: bridge
+
+volumes:
+  data: 
