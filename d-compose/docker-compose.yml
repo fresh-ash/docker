@@ -1,21 +1,22 @@
+version: "3.8"
 
 services:
     s1:
-      image: python:3.9-alpine
-      container_name: ps1
+      image: $IMAGE
+      container_name: $F_NAME
       ports: 
-      - 7000:7000
-      command: sh -c "python3 -u -m http.server 7000 2>> /app/data/ps1-log.txt"
+      - $F_PORT:$F_PORT
+      command: sh -c "python3 -u -m http.server ${F_PORT} 2>> /app/data/${F_NAME}-log.txt"
       networks: 
       - l-net
       volumes:
       - data:/app/data
     s2:
-      image: python:3.9-alpine
-      container_name: ps2
+      image: $IMAGE
+      container_name: $S_NAME
       ports:
-      - 7001:7001
-      command: sh -c "python3 -u -m http.server 7001 2>> /app/data/ps2-log.txt"
+        - $S_PORT:$S_PORT
+      command: sh -c "python3 -u -m http.server ${S_PORT} 2>> /app/data/${S_NAME}-log.txt"
       networks:
       - l-net
       volumes:
